@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang=en>
+    <head>
+        <title>Register</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="register.js"></script>
+    </head>
+    <body onload="init()">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <form method="post" action="/register">
+                        <div class="col-md-6 offset-md-3">
+                            <label for="fullName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="fullName" name="fullName">
+                        </div>
+                        <div class="col-md-6 offset-md-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="col-md-6 offset-md-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                        <div class="col-md-1 offset-md-5 form-check">
+                            <input type="checkbox" class=" col-md-2 offset-md-5 form-check-input" id="admin" name="admin">
+                            <label class=" form-check-label" for="admin">Admin</label>
+                        </div>
+                        <button type="submit" class="col-md-2 offset-md-5 btn btn-primary" id="btn">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
