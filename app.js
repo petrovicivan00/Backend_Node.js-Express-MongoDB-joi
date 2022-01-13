@@ -17,7 +17,7 @@ app.use(bodyparser.urlencoded({
 function getCookies(req) {
   if (req.headers.cookie == null) return {};
 
-  const rawCookies = req.headers.cookie.split('; ');
+  const rawCookies = req.headers.cookie.split(';');
   const parsedCookies = {};
 
   rawCookies.forEach( rawCookie => {

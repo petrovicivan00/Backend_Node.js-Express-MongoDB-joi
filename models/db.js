@@ -5,8 +5,5 @@ mongoose.connect('mongodb://localhost:27017/Movies', { useNewUrlParser: true,use
     else { console.log('Error in DB connection : ' + err) }
 });
 
- //deprecation warning
-mongoose.set('useFindAndModify', false);
-
 require('./movie.model.js');
 require('./user.model.js');

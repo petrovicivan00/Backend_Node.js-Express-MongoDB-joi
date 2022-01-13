@@ -1,3 +1,6 @@
+const res = require("express/lib/response");
+const fetch = require('node-fetch');
+
 function init() {
 
     document.getElementById('btn').addEventListener('click', e => {
@@ -10,7 +13,7 @@ function init() {
             admin: document.getElementById('admin').checked
         };
 
-        fetch('http://127.0.0.1:9000/register', {
+        fetch('localhost:3000/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)

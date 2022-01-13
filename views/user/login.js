@@ -1,4 +1,5 @@
 const res = require("express/lib/response");
+const fetch = require('node-fetch');
 
 function init() {
 
@@ -10,7 +11,7 @@ function init() {
             password: document.getElementById('password').value
         };
 
-        fetch('http://127.0.0.1:9000/login', {
+        fetch('localhost:3000/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
