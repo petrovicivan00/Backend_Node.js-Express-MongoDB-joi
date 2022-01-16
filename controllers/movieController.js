@@ -7,43 +7,13 @@ var bcrypt = require("bcrypt");
 const User = mongoose.model('User');
 
 
-function getCookies(req) {
-    if (req.headers.cookie == null) return {};
-  
-    const rawCookies = req.headers.cookie.split(';');
-    const parsedCookies = {};
-  
-    rawCookies.forEach( rawCookie => {
-        const parsedCookie = rawCookie.split('=');
-        parsedCookies[parsedCookie[0]] = parsedCookie[1];
-    });
-  
-    return parsedCookies;
-  };
-  
-  function authToken(req, res, next) {
-    const cookies = getCookies(req);
-    const token = cookies['token'];
-  
-    if (token == null) return res.redirect(301, '/login');
-  
-    jwt.verifyToken(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    
-        if (err) return res.redirect(301, '/login');
-    
-        req.user = user;
-    
-        next();
-    });
-  }
-  
-router.get('/', authToken, async (req, res) => {
-    res.render("layouts/mainLayout", {
+router.get('/', authToken, (req, res) => {
+    res.render("movie/main", {
         viewTitle: "MyMovieApp"
     });
   });
   
-router.post('/', async (req, res) => {
+router.post('/', authToken, (req, res) => {
     if (req.body._id == '')
         insertMovie(req, res);
         else
@@ -92,7 +62,7 @@ function updateMovie(req, res) {
 }
 
 
-router.get('/list', (req, res) => {
+router.get('/list', authToken, (req, res) => {
     Movie.find((err, docs) => {
         if (!err) {
             res.render("movie/list", {
@@ -127,7 +97,7 @@ function handleValidationError(err, body) {
     }
 }
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', authToken, (req, res) => {
     Movie.findById(req.params.id, (err, doc) => {
         if (!err) {
             res.render("movie/addOrEdit", {
@@ -138,7 +108,7 @@ router.get('/:id', async (req, res) => {
     });
 });
 
-router.get('/delete/:id', async (req, res) => {
+router.get('/delete/:id', authToken, (req, res) => {
     Movie.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
             res.redirect('movie/list');
@@ -149,26 +119,26 @@ router.get('/delete/:id', async (req, res) => {
 
 
 
-router.get('/register', async (req, res) => {
+router.get('/register', (req, res) => {
     res.render("user/register", {
         viewTitle: "Register"
     });
-  });
+});
   
-router.get('/login', async (req, res) => {
+router.get('/login', (req, res) => {
     res.render("user/login", {
         viewTitle: "Login"
     });
-  });
+});
   
-  router.post("/register", async (req, res) => {
+router.post("/register", (req, res) => {
   
-    const user = new User({
+  const user = new User({
       fullName: req.body.fullName,
       email: req.body.email,
       role: req.body.role,
       password: bcrypt.hashSync(req.body.password, 8)
-    });
+  });
   
     user.save((err, user) => {
       if (err) {
@@ -179,15 +149,11 @@ router.get('/login', async (req, res) => {
         return;
       } else {
         res.redirect('user/login');
-       /* res.status(200)
-          .send({
-            message: "User Registered successfully"
-          })*/
       }
     });
-  });
+});
   
-  router.post("/login", async (req, res) => {
+router.post("/login", (req, res) => {
     User.findOne({
       fullName: req.body.fullName
     })
@@ -224,8 +190,39 @@ router.get('/login', async (req, res) => {
         expiresIn: 86400
       });
       res.status(200);
-      res.redirect('layouts/mainLayout');
+      res.redirect('movie/main');
     });
-  });    
+});    
+
+function getCookies(req) {
+  if (req.headers.cookie == null) return {};
+
+  const rawCookies = req.headers.cookie.split(';');
+  const parsedCookies = {};
+
+  rawCookies.forEach( rawCookie => {
+      const parsedCookie = rawCookie.split('=');
+      parsedCookies[parsedCookie[0]] = parsedCookie[1];
+  });
+
+  return parsedCookies;
+};
+
+function authToken(req, res, next) {
+  const cookies = getCookies(req);
+  const token = cookies['token'];
+
+  if (token == null) return res.redirect(301, '/login');
+
+  jwt.verifyToken(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+  
+      if (err) return res.redirect(301, '/login');
+  
+      req.user = user;
+  
+      next();
+  });
+}
+
 
 module.exports = router;
