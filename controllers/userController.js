@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 
-router.get('u/register', (req, res) => {
+router.get('/register', (req, res) => {
     res.render("user/register", {
         viewTitle: "Register"
     });
