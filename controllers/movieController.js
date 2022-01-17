@@ -109,7 +109,7 @@ router.get('/:id', (req, res) => {
 router.get('/delete/:id', (req, res) => {
     Movie.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
-            res.redirect('movie/list');
+            res.redirect('/movie/list');
         }
         else { console.log('Error in movie delete :' + err); }
     });
