@@ -3,17 +3,15 @@ var router = express.Router();
 const mongoose = require('mongoose');
 const Movie = mongoose.model('Movie');
 var jwt = require("jsonwebtoken");
-var bcrypt = require("bcrypt");
-const User = mongoose.model('User');
 
 
-router.get('/', authToken, (req, res) => {
-    res.render("movie/main", {
+router.get('/', (req, res) => {
+    res.render("movie/addOrEdit", {
         viewTitle: "MyMovieApp"
     });
   });
   
-router.post('/', authToken, (req, res) => {
+router.post('/', (req, res) => {
     if (req.body._id == '')
         insertMovie(req, res);
         else
@@ -62,7 +60,7 @@ function updateMovie(req, res) {
 }
 
 
-router.get('/list', authToken, (req, res) => {
+router.get('/list', (req, res) => {
     Movie.find((err, docs) => {
         if (!err) {
             res.render("movie/list", {
@@ -97,7 +95,7 @@ function handleValidationError(err, body) {
     }
 }
 
-router.get('/:id', authToken, (req, res) => {
+router.get('/:id', (req, res) => {
     Movie.findById(req.params.id, (err, doc) => {
         if (!err) {
             res.render("movie/addOrEdit", {
@@ -108,7 +106,7 @@ router.get('/:id', authToken, (req, res) => {
     });
 });
 
-router.get('/delete/:id', authToken, (req, res) => {
+router.get('/delete/:id', (req, res) => {
     Movie.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
             res.redirect('movie/list');
@@ -116,113 +114,5 @@ router.get('/delete/:id', authToken, (req, res) => {
         else { console.log('Error in movie delete :' + err); }
     });
 });
-
-
-
-router.get('/register', (req, res) => {
-    res.render("user/register", {
-        viewTitle: "Register"
-    });
-});
-  
-router.get('/login', (req, res) => {
-    res.render("user/login", {
-        viewTitle: "Login"
-    });
-});
-  
-router.post("/register", (req, res) => {
-  
-  const user = new User({
-      fullName: req.body.fullName,
-      email: req.body.email,
-      role: req.body.role,
-      password: bcrypt.hashSync(req.body.password, 8)
-  });
-  
-    user.save((err, user) => {
-      if (err) {
-        res.status(500)
-          .send({
-            message: err
-          });
-        return;
-      } else {
-        res.redirect('user/login');
-      }
-    });
-});
-  
-router.post("/login", (req, res) => {
-    User.findOne({
-      fullName: req.body.fullName
-    })
-    .exec((err, user) => {
-      if (err) {
-        res.status(500)
-          .send({
-            message: err
-          });
-        return;
-      }
-      if (!user) {
-        return res.status(404)
-          .send({
-            message: "User Not found."
-          });
-      }
-
-    
-      var passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-      );
-      if (!passwordIsValid) {
-        return res.status(401)
-          .send({
-            accessToken: null,
-            message: "Invalid Password!"
-          });
-      }
-      var token = jwt.sign({
-        id: user.id
-      }, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: 86400
-      });
-      res.status(200);
-      res.redirect('movie/main');
-    });
-});    
-
-function getCookies(req) {
-  if (req.headers.cookie == null) return {};
-
-  const rawCookies = req.headers.cookie.split(';');
-  const parsedCookies = {};
-
-  rawCookies.forEach( rawCookie => {
-      const parsedCookie = rawCookie.split('=');
-      parsedCookies[parsedCookie[0]] = parsedCookie[1];
-  });
-
-  return parsedCookies;
-};
-
-function authToken(req, res, next) {
-  const cookies = getCookies(req);
-  const token = cookies['token'];
-
-  if (token == null) return res.redirect(301, '/login');
-
-  jwt.verifyToken(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-  
-      if (err) return res.redirect(301, '/login');
-  
-      req.user = user;
-  
-      next();
-  });
-}
-
 
 module.exports = router;
