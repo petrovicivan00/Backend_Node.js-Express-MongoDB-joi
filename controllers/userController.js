@@ -61,25 +61,23 @@ router.post("/login", (req, res) => {
 
     
       var passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
+          req.body.password,
+          user.password
       );
-      if (!passwordIsValid) {
-        return res.status(401)
-          .send({
-            accessToken: null,
-            message: "Invalid Password!"
-          });
-      }
-      var token = jwt.sign({
-        id: user.id
-      }, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: 86400
-      });
-      res.status(200);
-      res.redirect('/movie');
-    });
-});    
+        if (!passwordIsValid) {
+            return res.status(401)
+                .send({
+                    accessToken: null,
+                    message: "Invalid Password!"
+                });
+        }
 
+        jwt.sign({user: user}, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: 86400
+        });
+        res.status(200);
+        res.redirect('/movie');
+    });
+});
 
 module.exports = router;

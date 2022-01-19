@@ -4,45 +4,14 @@ const express = require('express');
 const exphbs = require('express3-handlebars');
 const bodyparser = require('body-parser');
 var jwt = require("jsonwebtoken");
+require('dotenv').config();
 const movieController = require('./controllers/movieController');
 const userController = require('./controllers/userController');
-require('dotenv').config();
 
 var app = express();
 app.use(bodyparser.urlencoded({
     extended: true
 }));
-
-function getCookies(req) {
-    if (req.headers.cookie == null) return {};
-  
-    const rawCookies = req.headers.cookie.split(';');
-    const parsedCookies = {};
-  
-    rawCookies.forEach( rawCookie => {
-        const parsedCookie = rawCookie.split('=');
-        parsedCookies[parsedCookie[0]] = parsedCookie[1];
-    });
-  
-    return parsedCookies;
-};
-  
-  
-function authToken(req, res, next) {
-    const cookies = getCookies(req);
-    const token = cookies['token'];
-  
-    if (token == null) return res.redirect(301, 'user/login');
-  
-    jwt.verifyToken(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    
-        if (err) return res.redirect(301, 'user/login');
-    
-        req.user = user;
-    
-        next();
-    });
-}
 
 app.get('/register', (req, res) => {
     res.redirect('user/register')
@@ -52,8 +21,7 @@ app.get('/login', (req, res) => {
     res.redirect('user/login')
 });
 
-app.get('/', authToken, (req, res) => {
-   // res.sendFile('main.html', { root: './views/movie' });
+app.get('/', (req, res) => {
     res.redirect('movie/main')
 });
 

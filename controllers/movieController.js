@@ -5,16 +5,16 @@ const Movie = mongoose.model('Movie');
 var jwt = require("jsonwebtoken");
 
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     res.render("movie/addOrEdit", {
         viewTitle: "MyMovieApp"
     });
-  });
-  
-router.post('/', (req, res) => {
+});
+
+router.post('/', async (req, res) => {
     if (req.body._id == '')
         insertMovie(req, res);
-        else
+    else
         updateMovie(req, res);
 });
 
@@ -60,14 +60,13 @@ function updateMovie(req, res) {
 }
 
 
-router.get('/list', (req, res) => {
+router.get('/list', async (req, res) => {
     Movie.find((err, docs) => {
         if (!err) {
             res.render("movie/list", {
                 list: docs
             });
-        }
-        else {
+        } else {
             console.log('Error in retrieving movie list :' + err);
         }
     });
@@ -95,7 +94,7 @@ function handleValidationError(err, body) {
     }
 }
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     Movie.findById(req.params.id, (err, doc) => {
         if (!err) {
             res.render("movie/addOrEdit", {
@@ -106,13 +105,27 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', async (req, res) => {
     Movie.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
             res.redirect('/movie/list');
+        } else {
+            console.log('Error in movie delete :' + err);
         }
-        else { console.log('Error in movie delete :' + err); }
     });
 });
+
+function authToken(req, res, next) {
+    const authHeader = req.headers.authorization
+    const token = authHeader && authHeader.split(' ')[1]
+    if (token == null) return res.redirect(301, 'user/login');
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        console.log(err)
+        if (err) return res.redirect(301, 'user/login');
+        req.user = user
+        next()
+    })
+}
 
 module.exports = router;
