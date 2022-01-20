@@ -1,26 +1,27 @@
 <h3><a class="btn btn-secondary" href="/movie"><i class="fa fa-plus"></i> Create New</a> Movie List</h3>
 <table class="table table-striped">
     <thead>
-        <tr>
-            <th>Movie Name</th>
-            <th>Genre</th>
-            <th>Main Actor</th>
-            <th>Rating</th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>Movie Name</th>
+        <th>Genre</th>
+        <th>Main Actor</th>
+        <th>Rating</th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-        {{#each list}}
-        <tr>
-            <td>{{this.movieName}}</td>
-            <td>{{this.genre}}</td>
-            <td>{{this.mainActor}}</td>
-            <td>{{this.rating}}</td>
-            <td>
-                <a href="/movie/{{this._id}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-                <a href="/movie/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record ?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
-            </td>
-        </tr>
-        {{/each}}
+    {{#each list}}
+    <tr>
+        <td>{{this.movieName}}</td>
+        <td>{{this.genre}}</td>
+        <td>{{this.mainActor}}</td>
+        <td>{{this.rating}}</td>
+        <td>
+            <a href="/movie/{{this._id}}"><i aria-hidden="true" class="fa fa-pencil fa-lg"></i></a>
+            <a href="/movie/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record ?');"><i
+                    aria-hidden="true" class="fa fa-trash fa-lg"></i></a>
+        </td>
+    </tr>
+    {{/each}}
     </tbody>
 </table>

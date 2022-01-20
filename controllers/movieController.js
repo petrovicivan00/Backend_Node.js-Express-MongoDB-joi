@@ -35,25 +35,24 @@ function insertMovie(req, res) {
                     viewTitle: "Insert Movie",
                     movie: req.body
                 });
-            }
-            else
+            } else
                 console.log('Error during record insertion : ' + err);
         }
     });
 }
 
 function updateMovie(req, res) {
-    Movie.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
-        if (!err) { res.redirect('movie/list'); }
-        else {
+    Movie.findOneAndUpdate({_id: req.body._id}, req.body, {new: true}, (err, doc) => {
+        if (!err) {
+            res.redirect('movie/list');
+        } else {
             if (err.name == 'ValidationError') {
                 handleValidationError(err, req.body);
                 res.render("movie/addOrEdit", {
                     viewTitle: 'Update Movie',
                     movie: req.body
                 });
-            }
-            else
+            } else
                 console.log('Error during record update : ' + err);
         }
     });
@@ -84,7 +83,7 @@ function handleValidationError(err, body) {
                 break;
             case 'mainActor':
                 body['mainActorError'] = err.errors[field].message;
-                break;    
+                break;
             case 'rating':
                 body['ratingError'] = err.errors[field].message;
                 break;

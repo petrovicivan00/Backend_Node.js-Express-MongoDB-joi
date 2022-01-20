@@ -26,7 +26,7 @@ router.get('/login', (req, res) => {
     res.redirect('user/login')
 });
 
-router.get('/', authToken,(req, res) => {
+router.get('/', authToken, (req, res) => {
     res.redirect('movie/main')
 });
 
