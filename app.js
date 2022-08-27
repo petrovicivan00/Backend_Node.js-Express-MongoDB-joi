@@ -1,18 +1,30 @@
-require('./models/db');
-const path = require('path');
-const express = require('express');
-const exphbs = require('express3-handlebars');
-const bodyparser = require('body-parser');
-const routes = require('./routes/routes');
+const express = require("express");
+require("dotenv").config();
+const body_parser = require("body-parser");
+const cors = require('cors');
+const app = express();
+const mongoose = require("mongoose");
+const authRoute = require("./routes/auth");
+const userRoute = require("./routes/users");
+const movieRoute = require("./routes/movies");
+const standupRoute = require("./routes/standups");
+const showRoute = require("./routes/shows");
+const animeRoute = require("./routes/animes");
 
-var app = express();
-app.use(bodyparser.urlencoded({
-    extended: true
-}));
+app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
+app.use("/api/movies", movieRoute);
+app.use("/api/standups", standupRoute);
+app.use("/api/shows", showRoute);
+app.use("/api/animes", animeRoute);
 
-app.use(bodyparser.json());
-app.set('views', path.join(__dirname, '/views/'));
-app.engine('html', exphbs({ extname: 'html', defaultLayout: 'main', layoutsDir: __dirname + '/views/movie/'}));
-app.set('view engine', 'html');
-app.use('/', routes);
-app.listen(process.env.PORT, console.log(`Server running on port ${process.env.PORT}.`))
+mongoose.connect('mongodb://localhost:27017/MyMovies')
+        .then(() => console.log("DB Connection Successfull"))
+        .catch(err => console.log(err));
+
+app.use(body_parser.json());
+app.use(cors());
+
+app.listen( process.env.PORT | 3000, () => {
+    console.log("Backend server is running on port " + process.env.PORT);
+});
