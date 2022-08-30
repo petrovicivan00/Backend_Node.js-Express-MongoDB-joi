@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 
 //REGISTER
-router.post("/register", async(req, res) => {
+router.post("/register", bodyparser.urlencoded({ extended: false }), async(req, res) => {
     const result = authSchema.validateAsync(req.body)
     if(result.error == null){
         const userData = new User({
@@ -22,7 +22,7 @@ router.post("/register", async(req, res) => {
             const user = await userData.save();
             res.status(201).json(user);
         } catch (error) {
-            res.status(500).json(err);
+            res.status(500).json(error);
         }
     }else{
         res.status(403).json("Inputs are not allowed!");
@@ -30,7 +30,7 @@ router.post("/register", async(req, res) => {
 })
 
 //LOGIN
-router.post("/login", async(req, res) => {
+router.post("/login", bodyparser.urlencoded({ extended: false }), async(req, res) => {
 
         const user = await User.findOne({ email: req.body.email });
 
