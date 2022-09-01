@@ -8,6 +8,11 @@ router.post("/", verify, async (req, res) => {
     if (req.user.isAdmin || req.user.isModerator) {
         const result = movieSchema.validateAsync(req.body)
         if(result.error == null){
+            const old = await Movie.findOne( req.body );
+            if(old){
+                res.status(400).json({ message: "Movie already exists!"})
+                return;
+            }
             const newMovie = new Movie(req.body);
             try {
                 const savedMovie = await newMovie.save();

@@ -8,6 +8,11 @@ router.post("/", verify, async (req, res) => {
     if (req.user.isAdmin || req.user.isModerator) {
         const result = animeSchema.validateAsync(req.body)
         if(result.error == null){
+            const old = await Anime.findOne(req.body);
+            if(old){
+                res.status(400).json({ message: "Anime already exists!"})
+                return;
+            }
             const newAnime = new Anime(req.body);
             try {
                 const savedAnime = await newAnime.save();

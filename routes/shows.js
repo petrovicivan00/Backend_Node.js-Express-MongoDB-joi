@@ -8,6 +8,11 @@ router.post("/", verify, async (req, res) => {
     if (req.user.isAdmin || req.user.isModerator) {
         const result = showSchema.validateAsync(req.body)
         if(result.error == null){
+            const old = await Show.findOne(req.body);
+            if(old){
+                res.status(400).json({ message: "Show already exists!"})
+                return;
+            }
             const newShow = new Show(req.body);
             try {
                 const savedShow = await newShow.save();

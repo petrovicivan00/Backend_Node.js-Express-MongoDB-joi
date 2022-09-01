@@ -1,4 +1,5 @@
 const router = require("express").Router();
+express = require("express");
 const User = require("../models/User");
 var bcrypt = require("bcrypt");
 require("dotenv").config();
@@ -7,9 +8,15 @@ const jwt = require("jsonwebtoken");
 
 
 //REGISTER
-router.post("/register", bodyparser.urlencoded({ extended: false }), async(req, res) => {
+router.post("/register", express.urlencoded({ extended: false }), async(req, res) => {
     const result = authSchema.validateAsync(req.body)
     if(result.error == null){
+
+        const old = await User.findOne({ username: req.body.username });
+        if(old){
+            res.status(400).json("User already exists!")
+            return;
+        }
         const userData = new User({
             username: req.body.username,
             email: req.body.email,
@@ -30,7 +37,7 @@ router.post("/register", bodyparser.urlencoded({ extended: false }), async(req, 
 })
 
 //LOGIN
-router.post("/login", bodyparser.urlencoded({ extended: false }), async(req, res) => {
+router.post("/login", express.urlencoded({ extended: false }), async(req, res) => {
 
         const user = await User.findOne({ email: req.body.email });
 

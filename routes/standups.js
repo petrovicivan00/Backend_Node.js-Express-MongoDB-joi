@@ -8,6 +8,11 @@ router.post("/", verify, async (req, res) => {
     if (req.user.isAdmin || req.user.isModerator) {
         const result = standupSchema.validateAsync(req.body)
         if(result.error == null){
+            const old = await Standup.findOne(req.body);
+            if(old){
+                res.status(400).json({ message: "Standup already exists!"})
+                return;
+            }
             const newStandup = new Standup(req.body);
             try {
                 const savedStandup = await newStandup.save();
