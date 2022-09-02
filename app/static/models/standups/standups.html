@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Standups</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">  
+</head>
+<body>
+    <div class="customCard">
+        <div class="row">
+            <div id="standups" class="col-sm-4 box">
+                
+            </div>
+            <div id = "addform">
+                <div><label>Add standup</label></div>
+                <br>
+                    
+                <label for="title">Title</label>
+                <input type="text" id="title1">
+               
+                <div>
+                <label for="mainActor">Main Actor</label>
+                <input type="text" id="creator1">
+                </div>
+               
+                <div>
+                <label for="year">Year</label>
+                <input type="text" id="year1">
+                </div>
+               
+                <div>
+                <label for="rating">Rating</label>
+                <input type="text" id="rating1">
+                </div>
+
+                <button type = "submit" onclick = "addEntry()" >Add</button>
+                <br>
+                <br>                
+
+                <div><label>Update standup</label></div>
+                <br>
+                    
+                <div>
+                <label for="id">standupId</label>
+                <input type="text" id="id2">
+                </div>
+
+                <div>
+                <label for="title">Title</label>
+                <input type="text" id="title2">
+                </div>
+               
+                <div>
+                <label for="mainActor">Main Actor</label>
+                <input type="text" id="mainActor2">
+                </div>
+               
+                <div>
+                <label for="year">Year</label>
+                <input type="text" id="year2">
+                </div>
+               
+                <div>
+                <label for="rating">Rating</label>
+                <input type="text" id="rating2">
+                </div>
+                
+                <button type = "submit" onclick = "editEntry()" >Update</button>
+                <br>
+                <br>                
+
+                <div><label>Delete standup</label></div>
+                <br>
+                    
+                <div>
+                <label for="id">standupId</label>
+                <input type="text" id="id3">
+                </div>
+     
+                <div><label></label></div>
+                <button type = "submit" onclick = "deleteEntry()" >Delete</button>
+                <br>
+                <br>
+                <button type = "submit" onclick = "showStandups()" >Show all standups</button>
+                <div class="col-6">
+                    <h2>All standups:</h2>
+                    <ul id="getStandups"></ul>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <script src="./standups.js"></script>
+    
+</body>
+</html>

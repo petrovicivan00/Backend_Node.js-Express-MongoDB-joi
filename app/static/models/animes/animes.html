@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Animes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">  
+</head>
+<body>
+    <div class="customCard">
+        <div class="row">
+            <div id="animes" class="col-sm-4 box">
+                
+            </div>
+            <div id = "addform">
+                <div><label>Add anime</label></div>
+                <br>
+                    
+                <label for="title">Title</label>
+                <input type="text" id="title1">
+               
+                <div>
+                <label for="creator">Creator</label>
+                <input type="text" id="creator1">
+                </div>
+               
+                <div>
+                <label for="year">Year</label>
+                <input type="text" id="year1">
+                </div>
+               
+                <div>
+                <label for="season">Season</label>
+                <input type="text" id="season1">
+                </div>
+           
+                <div>
+                <label for="episode">Episode</label>
+                <input type="text" id="episode1">
+                </div>
+
+                <div>
+                <label for="rating">Rating</label>
+                <input type="text" id="rating1">
+                </div>
+
+                <button type = "submit" onclick = "addEntry()" >Add</button>
+                <br>
+                <br>                
+
+                <div><label>Update anime</label></div>
+                <br>
+                    
+                <div>
+                <label for="id">animeId</label>
+                <input type="text" id="id2">
+                </div>
+
+                <div>
+                <label for="title">Title</label>
+                <input type="text" id="title2">
+                </div>
+               
+                <div>
+                <label for="creator">Creator</label>
+                <input type="text" id="creator2">
+                </div>
+               
+                <div>
+                <label for="year">Year</label>
+                <input type="text" id="year2">
+                </div>
+               
+                <div>
+                    <label for="season">Season</label>
+                    <input type="text" id="season2">
+                    </div>
+               
+                    <div>
+                    <label for="episode">Episode</label>
+                    <input type="text" id="episode2">
+                    </div>
+    
+                    <div>
+                    <label for="rating">Rating</label>
+                    <input type="text" id="rating2">
+                    </div>
+                <button type = "submit" onclick = "editEntry()" >Update</button>
+                <br>
+                <br>                
+
+                <div><label>Delete anime</label></div>
+                <br>
+                    
+                <div>
+                <label for="id">animeId</label>
+                <input type="text" id="id3">
+                </div>
+     
+                <div><label></label></div>
+                <button type = "submit" onclick = "deleteEntry()" >Delete</button>
+                <br>
+                <br>
+                <button type = "submit" onclick = "showAnimes()" >Show all animes</button>
+                <div class="col-6">
+                    <h2>All animes:</h2>
+                    <ul id="getAnimes"></ul>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <script src="./animes.js"></script>
+    
+</body>
+</html>
