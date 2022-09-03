@@ -14,7 +14,7 @@ const addEntry = () => {
         year : Number.parseInt(year),
         season : Number.parseInt(season),
         episode : Number.parseInt(episode),
-        rating :Double.parseDouble(rating)
+        rating :Number.parseFloat(rating)
     };
   
     const token = JSON.parse(localStorage.getItem("token"));
@@ -53,7 +53,7 @@ const addEntry = () => {
         year : Number.parseInt(year),
         season : Number.parseInt(season),
         episode : Number.parseInt(episode),
-        rating :Double.parseDouble(rating)
+        rating :Number.parseFloat(rating)
     };
   
     const token = JSON.parse(localStorage.getItem("token"));
@@ -104,7 +104,7 @@ const addEntry = () => {
 
   const jwtExpired = (message) => {
     if (message == "jwt expired") {
-      alert("Istekao je token");
+      alert("Token expired!");
       window.location.href = "/../../login.html";
       localStorage.clear();
       return true;

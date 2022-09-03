@@ -50,18 +50,17 @@ router.post("/login", async(req, res) => {
             if (!passwordIsValid) {
                 return res.status(401)
                     .send({
-                        accessToken: null,
+                        token: null,
                         message: "Invalid Password!"
                     });
             }
-            const accessToken = jwt.sign(
-                {id: user._id, isAdmin: user.isAdmin, isModerator: user.isModerator},
-                process.env.SECRET_KEY,
-                {expiresIn: "2h"}
-            )
-    
-            const { password, ...other } = user._doc;
-            res.status(200).json({...other, accessToken});
+            const token = jwt.sign({
+                userId: user._id, 
+                isAdmin: user.isAdmin,
+                isModerator: user.isModerator
+            }, process.env.SECRET_KEY, {expiresIn: "2h" });
+
+            res.status(200).json(`${token}`);
         }else{
             !user && res.status(401).json("User not found!");
         }

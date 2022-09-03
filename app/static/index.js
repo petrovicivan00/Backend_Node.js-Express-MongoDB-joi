@@ -23,7 +23,7 @@ window.onload = function () {
         alert("Niste ulogovani");
         return;
       }
-      const token = JSON.parse(localStorage.getItem("token"));
+      const token = localStorage.getItem("token");
       fetch("http://localhost:3000/api/users", {
         method: "GET",
         headers: {

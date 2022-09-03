@@ -14,7 +14,7 @@ const addEntry = () => {
         year : Number.parseInt(year),
         season : Number.parseInt(season),
         episode : Number.parseInt(episode),
-        rating :Double.parseDouble(rating)
+        rating :Number.parseFloat(rating)
     };
   
     const token = JSON.parse(localStorage.getItem("token"));
@@ -22,7 +22,7 @@ const addEntry = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${token}`,
+        token: `${token}`,
       },
       body: JSON.stringify(requestData),
     })
@@ -53,7 +53,7 @@ const addEntry = () => {
         year : Number.parseInt(year),
         season : Number.parseInt(season),
         episode : Number.parseInt(episode),
-        rating :Double.parseDouble(rating)
+        rating :Number.parseFloat(rating)
     };
   
     const token = JSON.parse(localStorage.getItem("token"));
@@ -61,7 +61,7 @@ const addEntry = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${token}`,
+        token: `${token}`,
       },
       body: JSON.stringify(requestData),
     })
@@ -87,7 +87,7 @@ const addEntry = () => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${token}`,
+        token: `${token}`,
       },
       body: JSON.stringify(requestData),
     })
@@ -104,7 +104,7 @@ const addEntry = () => {
 
   const jwtExpired = (message) => {
     if (message == "jwt expired") {
-      alert("Istekao je token");
+      alert("Token expired!");
       window.location.href = "/../../login.html";
       localStorage.clear();
       return true;
@@ -119,7 +119,7 @@ const addEntry = () => {
       method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${token}`,
+          token: `${token}`,
         }
     })
         .then( res => res.json() )

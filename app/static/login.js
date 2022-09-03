@@ -2,7 +2,7 @@ var button = document.getElementById("login");
 
 button.onclick = function () {
   const parameters = {
-    username: document.getElementById("username").value,
+    email: document.getElementById("email").value,
     password: document.getElementById("password").value,
   };
   fetch("http://localhost:2000/auth/login", {
@@ -12,11 +12,12 @@ button.onclick = function () {
   })
     .then((res) => res.json())
     .then((data) => {
-      localStorage.setItem("token", data.token)
+      localStorage.setItem("token",JSON.stringify(data))
       if (!(typeof data === "string")){
           alert(JSON.stringify(data.message));
           return;
       }
       window.location.href = "index.html";
+      console.log(localStorage.getItem("token"))
     });
 };

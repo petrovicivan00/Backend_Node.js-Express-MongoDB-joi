@@ -12,11 +12,11 @@ const addEntry = () => {
         genre : genre,
         year : Number.parseInt(year),
         mainActor : mainActor,
-        rating :Double.parseDouble(rating)
+        rating :Number.parseFloat(rating)
     };
   
     const token = JSON.parse(localStorage.getItem("token"));
-    fetch("http://localhost:3000/api/api/movies", {
+    fetch("http://localhost:3000/api/movies", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,11 +49,11 @@ const addEntry = () => {
         genre : genre,
         year : Number.parseInt(year),
         mainActor : mainActor,
-        rating :Double.parseDouble(rating)
+        rating :Number.parseFloat(rating)
     };
   
     const token = JSON.parse(localStorage.getItem("token"));
-    fetch("http://localhost:3000/api/api/movies/" + movieId, {
+    fetch("http://localhost:3000/api/movies/" + movieId, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +79,7 @@ const addEntry = () => {
         movieId: movieId,
     };
     const token = JSON.parse(localStorage.getItem("token"));
-    fetch("http://localhost:3000/api/api/movies/"+ movieId , {
+    fetch("http://localhost:3000/api/movies/"+ movieId , {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -100,7 +100,7 @@ const addEntry = () => {
 
   const jwtExpired = (message) => {
     if (message == "jwt expired") {
-      alert("Istekao je token");
+      alert("Token expired!");
       window.location.href = "/../../login.html";
       localStorage.clear();
       return true;

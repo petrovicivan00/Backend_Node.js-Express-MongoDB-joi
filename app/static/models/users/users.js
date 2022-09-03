@@ -12,7 +12,7 @@
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${token}`,
+        token: `${token}`,
       },
       body: JSON.stringify(requestData),
     })
@@ -34,7 +34,7 @@
       method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${token}`,
+          token: `${token}`,
         }
     })
         .then( res => res.json() )

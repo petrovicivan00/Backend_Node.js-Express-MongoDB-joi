@@ -10,7 +10,7 @@ const authSchema = Joi.object({
 
 const showSchema = Joi.object({
   title: Joi.string().required(),
-  year: Joi.string().required(),
+  year: Joi.number().required(),
   genre: Joi.string().required(),
   season: Joi.number().required(),
   episode: Joi.number().required(),
@@ -19,7 +19,7 @@ const showSchema = Joi.object({
 
 const movieSchema = Joi.object({
   title: Joi.string().required(),
-  year: Joi.string().required(),
+  year: Joi.number().required(),
   genre: Joi.string().required(),
   mainActor: Joi.string(),
   rating : Joi.number()
@@ -27,14 +27,14 @@ const movieSchema = Joi.object({
 
 const standupSchema = Joi.object({
   title: Joi.string().required(),
-  year: Joi.string().required(),
+  year: Joi.number().required(),
   mainActor: Joi.string(),
   rating : Joi.number()
 })
 
 const animeSchema = Joi.object({
   title: Joi.string().required(),
-  year: Joi.string().required(),
+  year: Joi.number().required(),
   creator: Joi.string().required(),
   season: Joi.number().required(),
   episode: Joi.number().required(),
