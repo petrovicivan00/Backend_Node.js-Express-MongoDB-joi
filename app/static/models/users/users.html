@@ -9,15 +9,64 @@
 <body>
     <div class="customCard">
         <div class="row">
-            <div id="users" class="col-sm-4 box">
-                
+            <div id="addForm">
+                <div><label>Add user</label></div>
+                    <div>
+                        <label for="username">Username</label>
+                        <input id="username1" name="username" type="text">
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input id="email1" name="email" type="email">
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input id="password1" name="password" type="password">
+                    </div>
+                    <div>
+                        <label for="isAdmin">Admin</label>
+                        <input id="isAdmin1" name="isAdmin" type="checkbox" value="false">
+                    
+                        <label for="isModerator">Moderator</label>
+                        <input id="isModerator1" name="isModerator" type="checkbox" value="false">
+                    </div>
+                    <button type = "submit" onclick = "addEntry()" >Add</button>
             </div>
-            <div id = "addform">
+            <br>
+            <div id = "updateform">
+                <div><label>Edit user</label></div>
+                <div>
+                    <label for="userID">User Id</label>
+                    <input id="id2" name="userId" type="text">
+                </div>
+                    <div>
+                        <label for="username">Username</label>
+                        <input id="username2" name="username" type="text">
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input id="email2" name="email" type="email">
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input id="password2" name="password" type="password">
+                    </div>
+                    <div>
+                        <label for="isAdmin">Admin</label>
+                        <input id="isAdmin2" name="isAdmin" type="checkbox" value="false">
+                    
+                        <label for="isModerator">Moderator</label>
+                        <input id="isModerator2" name="isModerator" type="checkbox" value="false">
+                    </div>
+                    <button type = "submit" onclick = "editEntry()" >Edit</button>
+            </div>
+            <br>
+            </div>
                 <div><label>Delete user</label></div>
                 <br>
                     
                 <label for="id">User Id</label>
-                <input type="text" id="id1">
+                <input type="text" id="id3">
                
 
                 <div><label></label></div>
@@ -28,8 +77,8 @@
                 <div class="col-6">
                     <h2>All users:</h2>
                     <ul id="getUsers"></ul>
-                  </div>
-        </div>
+                </div>
+            
         </div>
     </div>
     <script src="./users.js"></script>

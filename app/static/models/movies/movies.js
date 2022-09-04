@@ -44,7 +44,6 @@ const addEntry = () => {
     const rating = document.getElementById("rating2").value;
   
     const requestData = {
-        movieId : movieId,
         title : title,
         genre : genre,
         year : Number.parseInt(year),
@@ -54,7 +53,7 @@ const addEntry = () => {
   
     const token = JSON.parse(localStorage.getItem("token"));
     fetch("http://localhost:3000/api/movies/" + movieId, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         token: `${token}`,
