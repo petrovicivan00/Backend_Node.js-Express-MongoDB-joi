@@ -1,7 +1,7 @@
 const router = require("express").Router();
 express = require("express");
 const User = require("../models/User");
-var bcrypt = require("bcrypt");
+var bcrypt = require("bcryptjs");
 require("dotenv").config();
 const { authSchema } = require('../helpers/validationSchema')
 const jwt = require("jsonwebtoken");
@@ -39,7 +39,7 @@ router.post("/register", express.urlencoded({ extended: false }), async(req, res
 //LOGIN
 router.post("/login", async(req, res) => {
         console.log(req.body)
-        const user = await User.findOne({ email: req.body.email });
+        const user = await User.findOne({ email: req.body.email })
 
         if(user){
             var passwordIsValid = bcrypt.compare(
