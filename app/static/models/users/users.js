@@ -6,6 +6,11 @@ const addEntry = () => {
   const isAdmin = document.getElementById("isAdmin1");
   const isModerator = document.getElementById("isModerator1");
 
+  if (email == "" | username == "" | password == "") {
+    alert("Please fill every element!");
+    return false;
+  }
+
   const requestData = {
       username: username,
       email: email,
@@ -13,6 +18,18 @@ const addEntry = () => {
       isAdmin: Boolean(isAdmin.isChecked),
       isModerator: Boolean(isModerator.isChecked),
   };
+
+  if (requestData.email.length < 3 | !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(requestData.email))) {
+    alert("Email is not valid");
+    return false;
+        }
+  if (requestData.password == "") {
+      alert("Password must be filled out");
+      return false;
+  } else if (requestData.password.length < 3 | requestData.password.length > 16 ) {
+      alert("Password is not valid!");
+      return false;
+  }
 
   const token = JSON.parse(localStorage.getItem("token"));
   fetch("http://localhost:2000/auth/register", {
@@ -42,6 +59,10 @@ const editEntry = () => {
   const isAdmin = document.getElementById("isAdmin2").isChecked;
   const isModerator = document.getElementById("isModerator2").isChecked;
 
+  if (userId =="" | email == "" | username == "" | password == "") {
+    alert("Please fill every element!");
+    return false;
+  }
   const requestData = {
     username: username,
     email: email,
@@ -49,6 +70,21 @@ const editEntry = () => {
     isAdmin: Boolean(isAdmin),
     isModerator: Boolean(isModerator)
   };
+
+  if (requestData.email == "" | requestData.username == "" | requestData.password == "") {
+    alert("Credentials must be filled out");
+    return false;
+  } else if (requestData.email.length < 3 | !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(requestData.email))) {
+    alert("Email is not valid");
+    return false;
+        }
+  if (requestData.password === "") {
+      alert("Password must be filled out");
+      return false;
+  } else if (requestData.password.length < 3 | requestData.password.length > 16 ) {
+      alert("Password is not valid!");
+      return false;
+  }
 
   const token = JSON.parse(localStorage.getItem("token"));
   fetch("http://localhost:3000/api/users/" + userId, {

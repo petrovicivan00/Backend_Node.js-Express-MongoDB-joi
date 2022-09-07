@@ -8,6 +8,10 @@ const addEntry = () => {
     const episode = document.getElementById("episode1").value;
     const rating = document.getElementById("rating1").value;
   
+    if(title == "" | genre =="" | year == "" | season == "" | episode=="" | rating=="" ){
+      alert("Please fill every element!")
+      return false;
+    }
     const requestData = {
         title : title,
         genre : genre,
@@ -16,7 +20,20 @@ const addEntry = () => {
         episode : Number.parseInt(episode),
         rating :Number.parseFloat(rating)
     };
-  
+      
+    if(requestData.title.length > 100 | requestData.genre.length > 100){
+      alert('Credentials are too long!');
+      return false;
+    }
+    if(requestData.rating > 10 && requestData.rating < 0.1){
+      alert('Rating is not between 0 and 10!');
+      return false;
+    }
+    if(requestData.year > 2022 && requestData.year < 1800){
+      alert('Invalid year!');
+      return false;
+    }
+
     const token = JSON.parse(localStorage.getItem("token"));
     fetch("http://localhost:3000/api/shows", {
       method: "POST",
@@ -45,7 +62,11 @@ const addEntry = () => {
     const season = document.getElementById("season2").value;
     const episode = document.getElementById("episode2").value;
     const rating = document.getElementById("rating2").value;
-  
+    
+    if( showId=="", title == "" | genre =="" | year == "" | season == "" | episode=="" | rating=="" ){
+      alert("Please fill every element!")
+      return false;
+    }
     const requestData = {
         title : title,
         genre : genre,
@@ -54,6 +75,19 @@ const addEntry = () => {
         episode : Number.parseInt(episode),
         rating :Number.parseFloat(rating)
     };
+      
+    if(requestData.title.length > 100 | requestData.genre.length > 100){
+      alert('Credentials are too long!');
+      return false;
+    }
+    if(requestData.rating > 10 && requestData.rating < 0.1){
+      alert('Rating is not between 0 and 10!');
+      return false;
+    }
+    if(requestData.year > 2022 && requestData.year < 1800){
+      alert('Invalid year!');
+      return false;
+    }
   
     const token = JSON.parse(localStorage.getItem("token"));
     fetch("http://localhost:3000/api/shows/" + showId, {

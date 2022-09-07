@@ -5,7 +5,12 @@ const addEntry = () => {
     const mainActor = document.getElementById("mainActor1").value;
     const year = document.getElementById("year1").value;
     const rating = document.getElementById("rating1").value;
-  
+
+    if(title == "" | year == "" | mainActor == "" | rating=="" ){
+      alert("Please fill every element!")
+      return false;
+    }
+
     const requestData = {
         title : title,
         mainActor : mainActor,
@@ -13,6 +18,20 @@ const addEntry = () => {
         rating :Number.parseFloat(rating)
     };
   
+      
+    if(requestData.title.length > 100 | requestData.genre.length > 100){
+      alert('Credentials are too long!');
+      return false;
+    }
+    if(requestData.rating > 10 && requestData.rating < 0.1){
+      alert('Rating is not between 0 and 10!');
+      return false;
+    }
+    if(requestData.year > 2022 && requestData.year < 1800){
+      alert('Invalid year!');
+      return false;
+    }
+    
     const token = JSON.parse(localStorage.getItem("token"));
     fetch("http://localhost:3000/api/standups", {
       method: "POST",
@@ -39,7 +58,12 @@ const addEntry = () => {
     const mainActor = document.getElementById("mainActor2").value;
     const year = document.getElementById("year2").value;
     const rating = document.getElementById("rating2").value;
-  
+    
+    if( standupId == "" | title == "" | year == "" | mainActor == "" | rating=="" ){
+      alert("Please fill every element!")
+      return false;
+    }
+
     const requestData = {
         title : title,
         mainActor : mainActor,
@@ -47,6 +71,20 @@ const addEntry = () => {
         rating :Number.parseFloat(rating)
     };
   
+      
+    if(requestData.title.length > 100 | requestData.genre.length > 100){
+      alert('Credentials are too long!');
+      return false;
+    }
+    if(requestData.rating > 10 && requestData.rating < 0.1){
+      alert('Rating is not between 0 and 10!');
+      return false;
+    }
+    if(requestData.year > 2022 && requestData.year < 1800){
+      alert('Invalid year!');
+      return false;
+    }
+
     const token = JSON.parse(localStorage.getItem("token"));
     fetch("http://localhost:3000/api/standups/" + standupId, {
       method: "PUT",
