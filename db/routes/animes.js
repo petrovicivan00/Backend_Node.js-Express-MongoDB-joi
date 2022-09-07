@@ -29,6 +29,7 @@ router.post("/", verify, async (req, res) => {
 });
 //UPDATE
 router.put("/:id", verify, async (req, res) => {
+    
     if (req.user.isAdmin || req.user.isModerator) {
         const result = animeSchema.validateAsync(req.body)
         if(result.error == null){
@@ -61,10 +62,10 @@ router.delete("/:id", verify, async (req, res) => {
     }
 });
 
-//GET SINGLE ANIME
-router.get("/find/:id", async (req, res) => {
+//SEARCH ANIME
+router.get("/find/:title", async (req, res) => {
     try {
-        const anime = await Anime.findById(req.params.id);
+        const anime = await Anime.find({title:req.params.title});
         res.status(200).json(anime);
     } catch (err) {
         res.status(500).json(err);

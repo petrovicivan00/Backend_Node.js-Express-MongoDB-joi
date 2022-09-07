@@ -41,4 +41,12 @@ const animeSchema = Joi.object({
   rating : Joi.number()
 })
 
-module.exports = {authSchema, movieSchema, showSchema, standupSchema, animeSchema}
+const commentSchema = Joi.object({
+  object: Joi.string().required(),
+  user: Joi.string().required(),
+  content: Joi.string().required(),
+  likes: Joi.number(),
+  time : Joi.number()
+})
+
+module.exports = {authSchema, movieSchema, showSchema, standupSchema, animeSchema, commentSchema}

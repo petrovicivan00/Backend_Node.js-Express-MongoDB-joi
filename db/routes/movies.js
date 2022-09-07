@@ -60,10 +60,10 @@ router.delete("/:id", verify, async (req, res) => {
     }
 });
 
-//GET SINGLE MOVIE
-router.get("/find/:id", async (req, res) => {
+//SEARCH MOVIE
+router.get("/find/:title", async (req, res) => {
     try {
-        const movie = await Movie.findById(req.params.id);
+        const movie = await Movie.find({title:req.params.title});
         res.status(200).json(movie);
     } catch (err) {
         res.status(500).json(err);

@@ -61,10 +61,10 @@ router.delete("/:id", verify, async (req, res) => {
     }
 });
 
-//GET SINGLE SHOW
-router.get("/find/:id", async (req, res) => {
+//SEARCH SHOW
+router.get("/find/:title", async (req, res) => {
     try {
-        const show = await Show.findById(req.params.id);
+        const show = await Show.find({title:req.params.title});
         res.status(200).json(show);
     } catch (err) {
         res.status(500).json(err);

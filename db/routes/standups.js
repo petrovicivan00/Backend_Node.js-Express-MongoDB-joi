@@ -60,10 +60,10 @@ router.delete("/:id", verify, async (req, res) => {
     }
 });
 
-//GET SINGLE STANDUP
-router.get("/find/:id", async (req, res) => {
+//SEARCH STANDUP
+router.get("/find/:title", async (req, res) => {
     try {
-        const standup = await Standup.findById(req.params.id);
+        const standup = await Standup.find({title:req.params.title});
         res.status(200).json(standup);
     } catch (err) {
         res.status(500).json(err);

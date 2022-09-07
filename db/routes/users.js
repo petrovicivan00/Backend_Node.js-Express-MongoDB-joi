@@ -9,10 +9,9 @@ router.put("/:id", verify, async(req, res) => {
     if(req.user.id === req.params.id || req.user.isAdmin){
     const result = authSchema.validateAsync(req.body)
     if(result.error == null){
-        if(req.body.password){
-            req.body.password = bcrypt.hash(req.body.password, 10)
-        }
 
+        req.body.password = bcrypt.hashSync(req.body.password, 8)
+        
         try {
             const updatedUser = await User.findByIdAndUpdate(req.params.id, { $set: req.body }, {new: true});
             res.status(200).json(updatedUser);
