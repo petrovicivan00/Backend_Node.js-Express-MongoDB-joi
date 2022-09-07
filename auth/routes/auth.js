@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 
 
 //REGISTER
-router.post("/register", express.urlencoded({ extended: false }), async(req, res) => {
+router.post("/register", express.urlencoded({ extended: true }), async(req, res) => {
     const result = authSchema.validateAsync(req.body)
     if(result.error == null){
 
@@ -37,7 +37,7 @@ router.post("/register", express.urlencoded({ extended: false }), async(req, res
 })
 
 //LOGIN
-router.post("/login", async(req, res) => {
+router.post("/login",express.urlencoded({ extended: true }), async(req, res) => {
         console.log(req.body)
         const user = await User.findOne({ email: req.body.email })
 
